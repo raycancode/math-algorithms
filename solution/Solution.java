@@ -91,5 +91,24 @@ public class Solution {
         // }
     }
 
+    public int firstBadVersion(int n) {
+        
+        int l =1, r=n;
+        while(true){
+            if(l==r || l+1==r) break;
+            int m = l + (r-l)/2;
+            if(isBadVersion(m)){
+                r = m;
+            }else {
+                l=m;
+            } 
+
+        }
+        
+        if(isBadVersion(l)) return l;
+        return r;
+        
+    }
+
     
 }
