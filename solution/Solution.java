@@ -1,5 +1,7 @@
 package solution;
 
+import java.util.*;
+
 public class Solution {
     private boolean isValidCharacter(char a){
          return a>96 && a<123  || a-'0'>= 0 && a-'0'<=9 ? true : false;
@@ -91,6 +93,10 @@ public class Solution {
         // }
     }
 
+    private boolean isBadVersion(int m){
+        return true;
+    }
+
     public int firstBadVersion(int n) {
         
         int l =1, r=n;
@@ -108,6 +114,40 @@ public class Solution {
         if(isBadVersion(l)) return l;
         return r;
         
+    }
+
+    public boolean isAnagram(String s1, String s2){
+        if(s1.length()!=s2.length()) return false;
+        int[] arr = new int[26];
+        for(int i=0;i<s1.length();i++){
+            arr[s1.charAt(i)-'a'] ++;
+        }
+
+        for(int i=0;i<s2.length();i++){
+            if(arr[s2.charAt(i)-'a'] ==0) return false;
+            arr[s2.charAt(i)-'a']--;
+        }
+
+        return true;
+    }
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+
+        List<List<String>> res = new ArrayList<>();
+        for(int i=0;i<strs.length;i++){
+            char[] chars = strs[i].toCharArray();
+            Arrays.sort(chars);
+            String s = new String(chars);
+            List<String> list = map.getOrDefault(s, new ArrayList<>());
+            list.add(strs[i]);
+            map.put(s, list);
+        }
+
+        for(String k: map.keySet()){
+            res.add(map.get(k));
+        }
+        return res;
     }
 
     
