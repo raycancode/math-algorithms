@@ -1,5 +1,5 @@
 package solution;
-import java.math.*;
+
 public class Solution {
     private boolean isValidCharacter(char a){
          return a>96 && a<123  || a-'0'>= 0 && a-'0'<=9 ? true : false;
@@ -49,6 +49,46 @@ public class Solution {
             dp[i] = Math.max(dp[i-2]+nums[i], dp[i-1]);
         }
         return dp[nums.length-1];
+    }
+
+      public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        if(n==1) return;
+        
+        // for(int i=0;i<n;i++){
+        //     for(int j=0;j<n;j++){
+        //         System.out.print(matrix[i][j] + " ");
+        //     }
+        //     System.out.print("\n");
+        // }
+        
+        for(int i=0;i<n;i++){
+            for(int j=i;j<n;j++){
+                int tmp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i]=tmp;
+            }
+        }
+        
+        int l =0, r=n-1;
+        while(l<r){
+            for(int i=0;i<n;i++){
+                int tmp = matrix[i][l];
+                matrix[i][l]=matrix[i][r];
+                matrix[i][r] = tmp;
+            }
+            
+            l++;
+            r--;
+        }
+        
+        
+        // for(int i=0;i<n;i++){
+        //     for(int j=0;j<n;j++){
+        //         System.out.print(matrix[i][j] + " ");
+        //     }
+        //     System.out.print("\n");
+        // }
     }
 
     
