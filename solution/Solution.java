@@ -3,6 +3,8 @@ package solution;
 import java.util.*;
 
 public class Solution {
+
+    /*---- Problem 1: Valid Palindrome ------*/ 
     private boolean isValidCharacter(char a){
          return a>96 && a<123  || a-'0'>= 0 && a-'0'<=9 ? true : false;
     }
@@ -34,11 +36,12 @@ public class Solution {
         return true;
     }
 
-
+    /*---- Problem 2: Power of Three ------*/
     public boolean isPowerOfThree(int n) {
         return n>0 && 1162261467%n==0;
     }
 
+    /*---- Problem 3: House Robber ------*/
     public int rob(int[] nums) {
         if(nums.length==0) return 0;
         if(nums.length==1) return nums[0];
@@ -53,7 +56,8 @@ public class Solution {
         return dp[nums.length-1];
     }
 
-      public void rotate(int[][] matrix) {
+        /*---- Problem 4: Rotate Image ------*/
+        public void rotate(int[][] matrix) {
         int n = matrix.length;
         if(n==1) return;
         
@@ -93,6 +97,8 @@ public class Solution {
         // }
     }
 
+    /*---- Problem 5: First Bad Version ------*/
+
     private boolean isBadVersion(int m){
         return true;
     }
@@ -115,6 +121,8 @@ public class Solution {
         return r;
         
     }
+
+    /*---- Problem 6: Group Anagram ------*/
 
     public boolean isAnagram(String s1, String s2){
         if(s1.length()!=s2.length()) return false;
@@ -150,6 +158,7 @@ public class Solution {
         return res;
     }
 
+    /*---- Problem 7: Increasing Triplet Subsequence ------*/
     public boolean increasingTriplet(int[] nums) {
         int first = Integer.MAX_VALUE, second = Integer.MAX_VALUE;
         for(int i=0;i<nums.length;i++){
@@ -162,6 +171,7 @@ public class Solution {
         
     }
 
+    /*---- Problem 8: Jump Game II ------*/
     public int jump(int[] nums) {
         int n = nums.length-1;
         int maxFar =0, currEnd=0, jump =0;
@@ -177,6 +187,8 @@ public class Solution {
 
         return jump;
     }
+
+    /*---- Problem 9: Candy ------*/
 
     public int candy(int[] ratings) {
         int n = ratings.length;
@@ -198,6 +210,32 @@ public class Solution {
             res+=cans[i];
         }
 
+        return res;
+    }
+
+    /*---- Problem 10: Remove Boxes ------*/
+    public int removeBoxes(int[] boxes) {
+        int n = boxes.length;
+        int[][][] dp = new int[n][n][n];
+
+        return removeBoxHelper(boxes, 0, n-1, 0, dp);
+    }
+
+    private int removeBoxHelper(int[] boxes, int i, int j, int k, int[][][] dp){
+        if(i>j) return 0;
+        if(dp[i][j][k]>0) return dp[i][j][k];
+
+        int i0=i, k0=k;
+        for(;i+1<=j && boxes[i+1] == boxes[i]; i++, k++);
+
+        int res = (k+1)*(k+1) + removeBoxHelper(boxes, i+1, j, 0, dp);
+
+        for(int m=i+1; m<=j;m++){
+            if(boxes[i]==boxes[m]){
+                res = Math.max(res, removeBoxHelper(boxes, i+1, m-1, 0, dp) +removeBoxHelper(boxes, m, j, k+1, dp));
+            }
+        }
+        dp[i0][j][k0] = res;
         return res;
     }
     
