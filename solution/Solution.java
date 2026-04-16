@@ -162,5 +162,21 @@ public class Solution {
         
     }
 
+    public int jump(int[] nums) {
+        int n = nums.length-1;
+        int maxFar =0, currEnd=0, jump =0;
+        for(int i=0;i<n;i++){
+           maxFar = Math.max(maxFar, i+nums[i]);
+           if(maxFar>=n) return jump+1;
+
+           if(i==currEnd){
+            jump+=1;
+            currEnd = maxFar;
+           }
+        }
+
+        return jump;
+    }
+
     
 }
